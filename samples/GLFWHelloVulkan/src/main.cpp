@@ -215,7 +215,7 @@ Window::Window(char const* title, int width, int height)
 
   // 2. init sampler
   m_textureSampler = getDevice()->createSampler(vk::Filter::eNearest, vk::Filter::eNearest, vk::SamplerMipmapMode::eNearest, vk::SamplerAddressMode::eClampToEdge, vk::SamplerAddressMode::eClampToEdge,
-                                             vk::SamplerAddressMode::eClampToEdge, 0.0f, false, 0.0f, false, vk::CompareOp::eNever, 0.0f, 0.0f, vk::BorderColor::eFloatOpaqueWhite, false);
+                                             vk::SamplerAddressMode::eClampToEdge, 0.0f, false, 1.0f, false, vk::CompareOp::eNever, 0.0f, 0.0f, vk::BorderColor::eFloatOpaqueWhite, false);
 
   // init descriptor and pipeline layouts
   std::vector<vkhlf::DescriptorSetLayoutBinding> dslbs;
@@ -254,7 +254,7 @@ Window::Window(char const* title, int width, int height)
   vkhlf::PipelineVertexInputStateCreateInfo vertexInput(binding, {attrib0, attrib1});
   vk::PipelineInputAssemblyStateCreateInfo assembly({}, vk::PrimitiveTopology::eTriangleList, VK_FALSE);
   vkhlf::PipelineViewportStateCreateInfo viewport({{}}, {{}});   // one dummy viewport and scissor, as dynamic state sets them
-  vk::PipelineRasterizationStateCreateInfo rasterization({}, true, false, vk::PolygonMode::eFill, vk::CullModeFlagBits::eBack, vk::FrontFace::eClockwise, false, 0.0f, 0.0f, 0.0f, 1.0f);
+  vk::PipelineRasterizationStateCreateInfo rasterization({}, false, false, vk::PolygonMode::eFill, vk::CullModeFlagBits::eBack, vk::FrontFace::eClockwise, false, 0.0f, 0.0f, 0.0f, 1.0f);
   vkhlf::PipelineMultisampleStateCreateInfo multisample(vk::SampleCountFlagBits::e1, false, 0.0f, nullptr, false, false);
   vk::StencilOpState stencilOpState(vk::StencilOp::eKeep, vk::StencilOp::eKeep, vk::StencilOp::eKeep, vk::CompareOp::eAlways, 0, 0, 0);
   vk::PipelineDepthStencilStateCreateInfo depthStencil({}, true, true, vk::CompareOp::eLessOrEqual, false, false, stencilOpState, stencilOpState, 0.0f, 0.0f);
